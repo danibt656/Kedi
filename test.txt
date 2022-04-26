@@ -1,0 +1,4 @@
+get_terminal_size() method in Python is used to query the size of a terminal. This method returns the size of a terminal as a pair columns and lines. Here, columns represents width of the terminal window in characters and lines represents height of the terminal window in characters.
+get_terminal_size() method in Python is used to query the size of a terminal. This method returns the size of a terminal as a pair columns and lines. Here, columns represents width of the terminal window in characters and lines represents height of the terminal window in characters.
+
+hello test :)
