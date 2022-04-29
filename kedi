@@ -7,8 +7,11 @@
 
 import os
 import sys
+import argparse
 
 MARGIN = 8
+SHOW_LINE_ENDING = False
+
 
 class color:
    PURPLE = '\033[95m'
@@ -44,15 +47,34 @@ def print_line(size, line_num, line_txt):
     while i < total_chars:
         j = 0
         while j < total_space and i < total_chars:
-            print(f'{line_txt[i]}', end='')
+            if line_txt[i] == '\n' and SHOW_LINE_ENDING == True:
+                print(color.BOLD+color.RED+'$'+color.END, end='\n')
+            else:
+                print(f'{line_txt[i]}', end='')
             i += 1
             j += 1
         if i < total_chars:
             print('\n'+color.GRAY+'│'+color.END+color.BOLD+'{:>5}'.format(' ')+color.GRAY+' │ '+color.END, end='')
 
 def main():
+    # Set up arg parser    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v','--version', help='Kedi version number', required=False, action='store_true')
+    parser.add_argument('-f', help='<F> is the name of file to read', required=True)
+    parser.add_argument('-e','--end', help='Show $ at the end of each line', required=False, action='store_true')
+    args = vars(parser.parse_args())
+    
+    if args['version']:
+        print("Kedi v.1.0")
+        exit(0)
+        
+    if args['end']:
+        global SHOW_LINE_ENDING
+        SHOW_LINE_ENDING = True
+    
+    # Get terminal length and filename
     term_cols = os.get_terminal_size().columns
-    filename = sys.argv[1]
+    filename = args['f']
     
     # Print file name and box top
     print(f'\t\033[93m{color.BOLD}{filename}{color.END}')
